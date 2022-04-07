@@ -10,13 +10,13 @@ export function loginUser(dataToSubmit){
     return {
         //동작 후에 reducer로
         type: LOGIN_USER,
-        payload: request
+        payload: request.isAuthenticated()
 
     }    
 }
 
 export function signupUser(dataToSubmit){
-    const request = axios.post('/api/auth/signup', dataToSubmit)
+    const request = axios.post('/api/auth/register', dataToSubmit)
     .then(response => response.data)
     return {
         type: SIGNUP_USER,

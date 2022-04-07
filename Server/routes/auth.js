@@ -18,9 +18,9 @@ router.post('/login', isNotLoggedIn , passport.authenticate('local-login', {
     successRedirect: '/',
     failureRedirect: '/api/auth/login',
     failureFlash: true,
-}, function(req,res){
-    res.json('성공')
-}))
+}), async(req,res)=>{
+    console.log(req)
+})
 router.get('/google', passport.authenticate('google-login',{
     scope: ["email", "profile"]
 }))
@@ -32,9 +32,13 @@ router.get('/google/callback',  passport.authenticate('google-login',{
 
 router.post('/register', isNotLoggedIn, passport.authenticate('local-signup',{
     successRedirect: '/',
-    failureRedirect: '/',
+    failureRedirect: '/api/auth/register',
     failureFlash: true
-}))
+}),function(req,res,next){
+    req.status(200).json({
+        user_register : true
+    })
+})
 
 
 

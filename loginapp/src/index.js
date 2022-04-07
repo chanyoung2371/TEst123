@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import SignUp from './pages/SignUp';
+import { BrowserRouter, Route,Routes } from 'react-router-dom';
 //import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
@@ -13,14 +15,19 @@ import Reducer from './reducers';
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore)
 
 ReactDOM.render(
-  <Provider
-    store={createStoreWithMiddleware(Reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__()
-    )}
-  >
-    <App />
-  </Provider>,
+  <BrowserRouter>
+    <Provider
+      store={createStoreWithMiddleware(Reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+      )}
+    >
+      <App/>
+
+    </Provider>
+  
+  </BrowserRouter>
+  ,
   document.getElementById('root')
 );
 

@@ -5,14 +5,15 @@ const bkfd = require('../middlewares/bkfd2')
 
 module.exports = () => {
     passport.use('local-signup', new LocalStrategy({
-        usernameField: 'user_id',
-        passwordField: 'user_pw',
+        usernameField: 'email',
+        passwordField: 'password',
         passReqToCallback: true,
-    }, async(req, user_id, user_pw, done)=>{
+    }, async(req, email, password, done)=>{
         try {
+            console.log(req.body)
             let parameter = {
-                "user_id" : user_id,
-                "user_pw" : user_pw,
+                "user_id" : email,
+                "user_pw" : password,
                 "displayName" : req.body.name,
             }
             const checkUser = await authDAO.checkUserID(parameter)

@@ -15,10 +15,12 @@ function checkUserID(parameter) {
     })
 }
 function insertUser(parameter) {
+    console.log(parameter)
     return new Promise(function (resolve, reject) {
-        let queryData = `INSERT INTO user (user_id, user_pw, salt, displayName, provider) VALUES (?,?,?,?,?)`;
-        db.query(queryData, [parameter.user_id, parameter.user_pw, parameter.salt, parameter.name, 'local'], function (error, db_data) {
+        let queryData = `INSERT INTO user (user_id, user_pw, salt, displayName) VALUES (?,?,?,?)`;
+        db.query(queryData, [parameter.user_id, parameter.user_pw, parameter.salt, parameter.displayName], function (error, db_data) {
             if (error) { reject(error) }
+            console.log(db_data)
             if (db_data.affectedRows != 0) resolve('유저정보 입력완료')
             else reject('실패')
         })
@@ -26,7 +28,7 @@ function insertUser(parameter) {
 }
 function passportCheckUserSignup(parameter) {
     return new Promise(function (resolve, reject) {
-        let queryData = `SELECT user_id, displayName, provider FROM user WHERE user_id=?`;
+        let queryData = `SELECT user_id, displayName FROM user WHERE user_id=?`;
         db.query(queryData, [parameter], function (error, db_data) {
             console.log(db_data[0])
             if (error) { reject(error) }
@@ -57,9 +59,9 @@ function insertGoogleUser(parameter){
 }
 function passportCheckUserLogin(parameter){
     return new Promise(function (resolve, reject) {
-        console.log(parameter)
         let queryData = `SELECT user_id,salt, user_pw,displayName FROM user WHERE user_id = ?`;
         db.query(queryData, [parameter], function (error, db_data) {
+            
             if (error) { reject(error) }
             if(db_data[0] == undefined) reject('등록되지 않은 사용자')
             else resolve(db_data[0])

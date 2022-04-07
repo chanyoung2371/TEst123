@@ -8,8 +8,6 @@ module.exports = () => {
         usernameField: 'email',
         passwordField: 'password',
     }, async (email, password ,done) => {
-        console.log(email)
-        console.log(password)
         try {
             const user = await authDAO.passportCheckUserLogin(email)
             const result = await bkfd.복호화(password, user.salt, user.user_pw);
@@ -17,6 +15,7 @@ module.exports = () => {
                 "displayName" : user.displayName,
                 "user_id" : user.user_id
             }
+            console.log(user_data)
             return done(null, user_data)
         } catch (error) {
             return done(null, false, { message: error })
