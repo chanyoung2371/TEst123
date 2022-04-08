@@ -10,7 +10,6 @@ module.exports = () => {
         passReqToCallback: true,
     }, async(req, email, password, done)=>{
         try {
-            console.log(req.body)
             let parameter = {
                 "user_id" : email,
                 "user_pw" : password,
@@ -23,7 +22,9 @@ module.exports = () => {
             parameter.salt = result.salt;
             
             const insertuser = await authDAO.insertUser(parameter)
+            console.log(insertuser)
             const user = await authDAO.passportCheckUserSignup(user_id)
+            console.log(user)
             return done(null, user)
 
         } catch (error) {

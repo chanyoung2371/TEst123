@@ -47,7 +47,7 @@ function Login() {
             .then(response => {
                 // console.log(response.payload.Message == "success")
                 if (response.payload.Message == "success") {
-                    navigate('/signup')
+                    navigate('/images')
                 } else {
                     alert('Error')
                 }
