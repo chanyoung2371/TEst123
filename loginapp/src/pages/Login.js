@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../actions/user_action';
 import SignUp from '../pages/SignUp'
-import {Link, Route, Routes } from 'react-router-dom'
+import {Link, Route, Routes, useNavigate } from 'react-router-dom'
+// test
 
 const Layout = styled.div`
     display: flex;
@@ -21,9 +22,9 @@ const Button = styled.button`
     background-color: #fff;
     
 `
-function Login(props) {
+function Login() {
     //props: 로그인 후 처음화면으로 돌아가게 하기위해 필요
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
@@ -44,9 +45,9 @@ function Login(props) {
         dispatch(loginUser(body))
             //Axios.post('/api/user.login') //Axios 를 사용하여 post메소드 이용하여 서버에 보내기
             .then(response => {
-                console.log(response)
-                if (response.payload.loginSuccess) {
-                    props.history.push('/')
+                // console.log(response.payload.Message == "success")
+                if (response.payload.Message == "success") {
+                    navigate('/signup')
                 } else {
                     alert('Error')
                 }

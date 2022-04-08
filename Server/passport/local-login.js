@@ -2,7 +2,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const authDAO = require('../models/authDAO')
 const bkfd = require('../middlewares/bkfd2')
-
+// test
 module.exports = () => {
     passport.use('local-login', new LocalStrategy({
         usernameField: 'email',
@@ -15,7 +15,6 @@ module.exports = () => {
                 "displayName" : user.displayName,
                 "user_id" : user.user_id
             }
-            console.log(user_data)
             return done(null, user_data)
         } catch (error) {
             return done(null, false, { message: error })
