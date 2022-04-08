@@ -6,11 +6,11 @@ import {
 export function loginUser(dataToSubmit){
     const request = axios.post('/api/auth/login', dataToSubmit) //서버에 요청
     .then(response => response.data)   //res로 받은 것을 rquest에 저장
-    console.log(request)
+    // console.log(request)
     return {
         //동작 후에 reducer로
         type: LOGIN_USER,
-        payload: request.isAuthenticated()
+        payload: request
 
     }    
 }

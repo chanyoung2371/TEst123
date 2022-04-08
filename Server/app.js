@@ -9,13 +9,6 @@ const flash = require('connect-flash')
 const passport = require('passport');
 var cors = require('cors')
 
-const user = {
-  user_id : 'test',
-  user_pw : 'Fyuwj+giWihV0bMBfoB142KiMg14o3oWA2AP64u0oPJcCNGL9LaHQeo0pEzgGRvz61VI+07jwy9eekLuPLn3Q7GOGO62QSlXkh0ppdGREkJkJ9OKpRgkaWM7A/lIrHPcrln/gEXg/jWFpMLvSmpSBaHchmLQ4917/2+hraWBACs=',
-  displayName : 'EvFkvGGtcx5Yfs6MKxD/pW4jLlMRPZIpytIrYpwKcwueCOCzfWJyNukNcw1iTKAyOBOHMbzsQudWARZZ9r806A==',
-  provider : 'local'
-}
-
 const passportConfig = require('./passport/passport')
 
 var authRouter = require('./routes/auth');
@@ -35,10 +28,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+passportConfig();
 app.use(cookieParser('1q2w3e4r~!'));
 app.use(Session)
-
-passportConfig();
 
 app.use(passport.initialize());
 app.use(passport.session());
