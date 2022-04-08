@@ -14,7 +14,7 @@ module.exports = () => {
             let parameter = {
                 "user_id" : email,
                 "user_pw" : password,
-                "displayName" : req.body.name,
+                "displayName" : req.body.displayName,
             }
             const checkUser = await authDAO.checkUserID(parameter)
             const result = await bkfd.암호화(parameter)

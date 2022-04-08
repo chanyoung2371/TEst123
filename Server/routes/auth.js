@@ -14,12 +14,15 @@ router.get('/login', function(req, res,next){
 //         console.log(req.body)
 //     }
 // )
-router.post('/login', isNotLoggedIn , passport.authenticate('local-login', {
-    successRedirect: '/',
-    failureRedirect: '/api/auth/login',
-    failureFlash: true,
-}), async(req,res)=>{
-    console.log(req)
+router.post('/login', function(req, res, next){
+    passport.authenticate('local-login',{successRedirect: '/'}, function(err,user,info){
+        if(err){return next(err)}
+        if(user){
+            res.json({"isAuth":true,"Message":"success","user":user})
+        } else{
+            res.json({"Message":"fail"})
+        }
+    })(req, res, next);
 })
 router.get('/google', passport.authenticate('google-login',{
     scope: ["email", "profile"]

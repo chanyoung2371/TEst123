@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { signupUser } from '../actions/user_action'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Layout = styled.div`
     display: flex;
@@ -21,8 +21,8 @@ const OkButton = styled.button`
     background-color: #fff;
     text-decoration: none;
 `
-function SignUp(props) {
-
+function SignUp() {
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const [Email, setEmail] = useState("")
     const [Name, setName] = useState("")
@@ -54,7 +54,7 @@ function SignUp(props) {
             //Axios.post('/api/user.login') //Axios 를 사용하여 post메소드 이용하여 서버에 보내기
             .then(response => {
                 if (response.payload.success) {
-                    props.history.push("/")
+                    navigate("/")
                 } else {
                     alert("Faild to sign up")
                 }
