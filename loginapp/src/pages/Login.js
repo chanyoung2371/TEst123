@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../actions/user_action';
+import { loginUser,googleUser } from '../actions/user_action';
 import SignUp from '../pages/SignUp'
 import {Link, Route, Routes, useNavigate } from 'react-router-dom'
 // test
@@ -49,9 +49,20 @@ function Login() {
                 if (response.payload.Message == "success") {
                     navigate('/images')
                 } else {
-                    alert('Error')
+                    alert(response.payload.Message)
                 }
             })
+    }
+    const onGoogleLoginHandler = (e) =>{
+        e.preventDefault(); //리프레쉬 방지 .
+        dispatch(googleUser())
+        .then(response => {
+            if(response.payload.Message == "success"){
+                navigate('/images')
+            } else{
+                alert(response.payload.Message)
+            }
+        })
     }
     return (
 
@@ -63,7 +74,9 @@ function Login() {
                 <input type="password" value={Password} onChange={onPasswordHandler} />
                 <Button>로그인</Button>
                 <Button><Link to='/signup'>회원가입</Link></Button>
-
+            </Form>
+            <Form onSubmit={onGoogleLoginHandler}>
+                <Button>구글로그인</Button>
             </Form>
           
         </Layout>

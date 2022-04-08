@@ -37,7 +37,7 @@ function passportCheckUserSignup(parameter) {
 }
 function passportCheckGoogle(parameter) {
     return new Promise(function (resolve, reject) {
-        let queryData = `SELECT user_id, displayName, provider FROM google WHERE user_id = ?`;
+        let queryData = `SELECT user_id, displayName,level FROM google WHERE user_id = ?`;
         db.query(queryData, [parameter.id], function (error, db_data){
             if(error) resolve(error)
             if(db_data[0] != undefined) resolve(db_data[0])
@@ -57,9 +57,8 @@ function insertGoogleUser(parameter){
 }
 function passportCheckUserLogin(parameter){
     return new Promise(function (resolve, reject) {
-        let queryData = `SELECT user_id,salt, user_pw,displayName FROM user WHERE user_id = ?`;
+        let queryData = `SELECT user_id,salt, user_pw,displayName, level FROM user WHERE user_id = ?`;
         db.query(queryData, [parameter], function (error, db_data) {
-            
             if (error) { reject(error) }
             if(db_data[0] == undefined) reject('등록되지 않은 사용자')
             else resolve(db_data[0])

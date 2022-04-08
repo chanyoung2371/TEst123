@@ -13,7 +13,8 @@ module.exports = () => {
             const result = await bkfd.복호화(password, user.salt, user.user_pw);
             const user_data = {
                 "displayName" : user.displayName,
-                "user_id" : user.user_id
+                "user_id" : user.user_id,
+                "level" :user.level
             }
             return done(null, user_data)
         } catch (error) {

@@ -11,7 +11,7 @@ var cors = require('cors')
 
 const passportConfig = require('./passport/passport')
 
-var authRouter = require('./routes/auth');
+var authRouter = require('./routes/auth');awz
 var usersRouter = require('./routes/users');
 var indexRouter = require('./routes/index')
 var uploadRouter = require('./routes/upload')

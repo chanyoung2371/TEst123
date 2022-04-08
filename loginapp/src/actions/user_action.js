@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {
     LOGIN_USER,
-    SIGNUP_USER
+    SIGNUP_USER,
+    GOOGLE_USER,
 } from './types';
 export function loginUser(dataToSubmit){
     const request = axios.post('/api/auth/login', dataToSubmit) //서버에 요청
@@ -22,5 +23,13 @@ export function signupUser(dataToSubmit){
         type: SIGNUP_USER,
         payload: request
 
+    }
+}
+
+export function googleUser(){
+    const request = axios.get('/api/auth/google')
+    return{
+        type: GOOGLE_USER,
+        payload: request
     }
 }

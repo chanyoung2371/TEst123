@@ -1,3 +1,4 @@
+import React from 'react'
 import { useRoutes } from "react-router-dom";
 import SignUp from './pages/SignUp';
 import Login from "./pages/Login";

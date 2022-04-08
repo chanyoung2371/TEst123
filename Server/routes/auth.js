@@ -1,56 +1,48 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
-const authController = require('../controllers/authControllers')
-const { isLoggedIn, isNotLoggedIn } = require('../middlewares/login-middlewares')
-// test
-router.get('/logout', isLoggedIn, authController.logout)
+const authCtrls = require('../controllers/authControllers')
 
+const { isLoggedIn, isNotLoggedIn } = require('../middlewares/login-middlewares')
+
+// API
+//-------------------------------------GET-------------------------------------//
+
+// 로그아웃
+router.get('/logout', isLoggedIn, authCtrls.logout)
+
+// 로그인 // 생략가능
 router.get('/login', function (req, res, next) {
     res.render('login')
 })
-// router.post('/login',
-//     function(req,res){
-//         console.log(req.body)
-//     }
-// )
-router.post('/login', function (req, res, next) {
-    passport.authenticate('local-login', { successRedirect: '/' }, function (err, user, info) {
-        if (err) { return next(err) }
-        if (user) {
-            res.json({ "isAuth": true, "Message": "success", "user": user })
-        } else {
-            res.json({ "Message": "fail" })
-        }
-    })(req, res, next);
-})
-router.get('/google', passport.authenticate('google-login', {
-    scope: ["email", "profile"]
-}))
+
+// 구글 로그인
+router.get('/google', authCtrls.googleLogin )
+
+//구글 로그인 완료
 router.get('/google/callback', passport.authenticate('google-login', {
     successRedirect: '/',
     failureRedirect: '/api/auth/login',
     failureFlash: true
 }))
+//------------------------------------POST-------------------------------------//
 
-router.post('/register', isNotLoggedIn, function (req, res, next) {
-    passport.authenticate('local-signup', {
-        successRedirect: '/'
-    }, function (err, user, info) {
-        if(err){return next(err)}
-        console.log(user)
-        if(user){
-            res.json({"isAuth":false,"Message":"success"})
-        } else {
-            res.json({ "Message": "fail" })
-        }
-    })(req,res,next)
-})
+// 로그인
+router.post('/login', authCtrls.login)
 
+// 회원가입
+router.post('/register', isNotLoggedIn, authCtrls.registerUser)
 
+//-------------------------------------PUT-------------------------------------//
 
-router.put('/update', isLoggedIn, authController.updateUser)
+// 회원정보 수정
+router.put('/update', isLoggedIn, authCtrls.updateUser)             // 미완성
 
-router.delete('/delete', isLoggedIn, authController.deleteUser)
+//------------------------------------DELETE-----------------------------------//
+
+// 회원탈퇴
+router.delete('/delete', isLoggedIn, authCtrls.deleteUser)          // 미완성
+
+//-----------------------------------------------------------------------------//
 
 module.exports = router;
