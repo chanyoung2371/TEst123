@@ -3,7 +3,7 @@ var router = express.Router();
 const passport = require('passport');
 const authController = require('../controllers/authControllers')
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares/login-middlewares')
-
+// test
 router.get('/logout', isLoggedIn, authController.logout)
 
 router.get('/login', function(req, res,next){

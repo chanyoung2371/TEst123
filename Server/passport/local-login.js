@@ -2,7 +2,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const authDAO = require('../models/authDAO')
 const bkfd = require('../middlewares/bkfd2')
-
+// test
 module.exports = () => {
     passport.use('local-login', new LocalStrategy({
         usernameField: 'email',
